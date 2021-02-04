@@ -1,0 +1,288 @@
+ BB--- App-password   -- zp7bK9ZuzVSBEjsWeTMX
+b68cc3518a1c.mylabserver.com
+
+
+
+###   git --local VCS
+
+    3  sudo yum install -y git
+    4  git --version
+    1  mkdir /devops-project
+    2  cd /devops-project/
+    3  git init .
+    6  git config --global user.name harish
+    7  git config --global user.email hairsh@gmail.com
+        Copy files
+   27  alias g=git
+   28  g status
+   29  git add .
+   30  git commit -m "Initial commit --adding files"
+   31  g status
+   37  vim README.md 
+   33   g log
+   45  g reset 5042d60e843754ef9b15ebb3f0ff80da1e8291ce
+   46   g log
+   47  g status
+   48  g restore README.md
+   49  g status
+   52  vim README.md 
+   
+   
+   
+  
+
+##### BB:
+ 
+ developer-1:
+   git clone https://devopsvid07@bitbucket.org/devopsvid07/devops-pipeline.git
+    5  cd devops-pipeline/
+    8  git config --global user.name harish1
+    9  git config --global user.email hairsh1@gmail.com
+   10  git remote -v
+	origin	https://devopsvid07@bitbucket.org/devopsvid07/devops-pipeline.git (fetch)
+	origin	https://devopsvid07@bitbucket.org/devopsvid07/devops-pipeline.git (push)
+   <copy code files>
+ git status
+   32  git add .
+   33  git commit -m "Initial commit  --- adding files"
+   34  git push -u origin master
+
+
+ developer-2:
+  git clone https://devopsvid07@bitbucket.org/devopsvid07/devops-pipeline.git
+
+    5  git config --global user.name harish2
+    6  git config --global user.email hairsh2@gmail.com
+    7  git remote -v
+    8  vim README.md 
+    9  git status
+   10  git add .
+   11  git commit -m "dev2 test commit"
+   12  git push -u otigin master
+   13  git push -u origin master
+
+
+Solving Integration Issues:
+   17  git branch
+   20  git branch feature
+   21  git branch
+   22  git checkout feature
+   25  vim README.md 
+   26  git status
+   27  git add .
+   28  git commit -m "dev2 feature branch commit"
+   31  git push -u origin feature
+   
+ Create pull request---> Reviewer apprves---> merge --> delete child branch
+ 
+ 
+
+############ Maven
+
+cd /opt
+ 2  wget https://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip
+
+    4  unzip apache-maven-3.6.3-bin.zip 
+    
+    git clone https://devopsvid07@bitbucket.org/devopsvid07/devops-pipeline.git
+   
+   /root/devops-pipeline/java-source
+ /opt/apache-maven-3.6.3/bin/mvn clean package
+
+
+
+
+###SQ
+
+ 
+    5  rpm -Uvh https://yum.postgresql.org/11/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+    6  yum install -y postgresql11
+    7  yum install -y postgresql-server postgresql-devel postgresql
+   11  /usr/bin/postgresql-setup initdb
+   12  ls /var/lib/pgsql/data/
+ 
+   14  cat /var/lib/pgsql/initdb.log 
+   15  systemctl restart postgresql
+   16  systemctl status  postgresql
+   17  cat /var/lib/pgsql/initdb.log 
+   
+tail -1 /etc/passwd
+postgres:x:26:26:PostgreSQL Server:/var/lib/pgsql:/bin/bash
+
+
+[root@b68cc3518a1c cloud_user]# su - postgres
+-bash-4.2$ psql
+psql (9.2.24)
+Type "help" for help.
+
+postgres=# CREATE USER sonar WITH PASSWORD 'sonar';
+CREATE ROLE
+postgres=# ALTER USER sonar WITH SUPERUSER
+postgres-# \du
+                             List of roles
+ Role name |                   Attributes                   | Member of 
+-----------+------------------------------------------------+-----------
+ postgres  | Superuser, Create role, Create DB, Replication | {}
+ sonar     |                                                | {}
+
+postgres-# \?
+General
+  \copyright             show PostgreSQL usage and distribution terms
+  \g [FILE] or ;         execute query (and send results to file or |pipe)
+  \h [NAME]              help on syntax of SQL commands, * for all commands
+  \q                     quit psql
+
+
+/var/lib/pgsql/data/pg_hba.conf
+
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+# "local" is for Unix domain socket connections only
+local   all             all                                     trust 
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            trust 
+# IPv6 local connections:
+
+
+[root@b68cc3518a1c cloud_user]# su - postgres
+Last login: Sun Jan 10 06:02:39 UTC 2021 on pts/0
+-bash-4.2$ psql
+psql (9.2.24)
+Type "help" for help.
+
+postgres=# CREATE DATABASE SONAR;
+CREATE DATABASE
+postgres=# \l
+                             List of databases
+   Name         |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+-----------+----------+----------+---------+-------+-----------------------
+ postgres      | postgres | UTF8     | en_IN   | en_IN | 
+#### sonar     | postgres | UTF8     | en_IN   | en_IN | 
+
+
+postgres=# GRANT ALL PRIVILEGES ON DATABASE   sonar TO sonar;
+GRANT
+postgres=# \l
+                             List of databases
+   Name       |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+-----------+----------+----------+---------+-------+-----------------------
+ postgres     | postgres | UTF8     | en_IN   | en_IN | 
+#### sonar    | postgres | UTF8     | en_IN   | en_IN | =Tc/postgres         +
+              |          |          |         |       | postgres=CTc/postgres+
+              
+              
+              
+
+
+----> Jfrog
+
+  165  wget https://releases.jfrog.io/artifactory/artifactory-rpms/artifactory-rpms.repo -O jfrog-artifactory-rpms.repo;
+  166  sudo mv jfrog-artifactory-rpms.repo /etc/yum.repos.d/;
+  167  sudo yum update && sudo yum install jfrog-artifactory-oss
+  168  systemctl restart artifactory
+  
+
+
+[root@b68cc3518a1c opt]# wget http://b68cc3518a1c.mylabserver.com:8082/artifactory/libs-release-local/com/iwayq/iwayQApp/1.0-RELEASE/iwayQApp-1.0-RELEASE.war
+--2021-01-11 06:23:06--  http://b68cc3518a1c.mylabserver.com:8082/artifactory/libs-release-local/com/iwayq/iwayQApp/1.0-RELEASE/iwayQApp-1.0-RELEASE.war
+Resolving b68cc3518a1c.mylabserver.com (b68cc3518a1c.mylabserver.com)... 172.31.126.190
+Connecting to b68cc3518a1c.mylabserver.com (b68cc3518a1c.mylabserver.com)|172.31.126.190|:8082... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+Authorization failed.
+
+
+######Admin--->Edit profile---> Security Configuration  ---> Allow anonymous access
+[root@b68cc3518a1c opt]# wget http://b68cc3518a1c.mylabserver.com:8082/artifactory/libs-release-local/com/iwayq/iwayQApp/1.0-RELEASE/iwayQApp-1.0-RELEASE.war
+--2021-01-11 06:23:23--  http://b68cc3518a1c.mylabserver.com:8082/artifactory/libs-release-local/com/iwayq/iwayQApp/1.0-RELEASE/iwayQApp-1.0-RELEASE.war
+Resolving b68cc3518a1c.mylabserver.com (b68cc3518a1c.mylabserver.com)... 172.31.126.190
+Connecting to b68cc3518a1c.mylabserver.com (b68cc3518a1c.mylabserver.com)|172.31.126.190|:8082... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 24427886 (23M) [application/java-archive]
+Saving to: ‘iwayQApp-1.0-RELEASE.war’
+
+
+ Dockerfile 
+FROM tomcat:latest
+COPY iwayq.war /usr/local/tomcat/webapps
+
+docker run --name iwayq-com -p 8080:8080 -d  iwaq-tomcat
+b1f8763864dcd67ad03698a9e764b6093d8eeea00638716ddf897b6ffda00232
+
+
+  132  amazon-linux-extras list
+  134  amazon-linux-extras install ansible2
+
+  136  ansible --version
+  137  yum install -y python-pip
+  138  pip install docker-py
+  
+  154  yum install -y docker
+  155  systemctl restart docker
+
+  140  mkdir /artifacts
+  141  mkdir /dockercode
+  142  cd /dockercode/
+
+  146  cd devops-pipeline/
+
+  148  cp create-container-image.yaml Dockerfile /dockercode/
+  149  cd /dockercode/
+
+  153  ansible-playbook create-container-image.yaml 
+
+
+
+  166  docker imagesl 
+  168  ansible-playbook create-container-image.yaml 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Masturbation
+Overthinking
+Being lazy
+Completing the task at the 11th hour or the deadline.
+Living in your comfort zone.
+Exaggerated use of social media. Instagram pages are making a lot of money. They post everything that catches your attention.
+Watching pornography and web series. Stop feeding your mind with outrageous content. It will adversely affect your career.
+Don't try to manage your emotions. Improper management of your reaction to emotions will not let you grow. Stop reacting to such shit any more.
+Getting much into the past. it's over now. Move on.
+Putting bad comments on social media. Everything is trackable. Even if you are using a fake account. Internet Protocol address (IP) does not alter. Your profile will be analyzed or scanned when you will join a good position in any company.
+Involving yourself in things that are irrelevant to you.
+Having too many unrealistic expectations from the wrong person.
+Àllways saying yes.
+Anything in excess is waste. Don't do anything beyond the limit. Being too much ambitious and positive might not help you in your career. Be grounded and set attainable goals.
+Not ready for change not even if it's a necessity.
+Addiction ( social media, drug, alcohol, and cigarettes 🚬 )
+You are getting affected by the opinion of others.
+Comparing yourself to others.
+Criticizing people and being jealous of someone's success or growth.
+Unaware of the fact that karma gonna hit you hard. You get what you manifest in your mind.
+Being extravagant.
+Expecting your parent could do more for you. Thinking your life could be better If your parent has managed their income well.
+Let me tell you one thing it's your time to pay them. He could be with his darling in his own Lamborghini but they both choose to invest in you from your childhood. Respect your parents.
+Ending on a Good Note
+
+“ Be honest with yourself. Stop arguing for your limitations. Take responsibility for your own life. In this way, you can change what is not working."
+
+Your blessings are on the way. Your silent prayer has been answered. You are going to be successful soon. 😊🙏🏻
+
+Much love and respect for you from the writer for giving me your valuable time to read this answer to end. ♥
+
+
+
+
